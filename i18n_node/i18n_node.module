@@ -305,17 +305,18 @@ function i18n_node_node_view_alter(&$build) {
   if (variable_get('i18n_hide_translation_links', 0) == 1) {
     unset($build['links']['translation']);
   }
-  dpm($build);
-  if (!empty($node->tnid)) {
-    $links = $build['links']['translation']['#links'];
-    foreach (i18n_node_language_list($node) as $langcode => $langname) {
-      $index = 'translation_'. $langcode;
-      if (!empty($links[$index])) {
-        if (!($language_support & I18N_LANGUAGE_EXTENDED) && $links[$index]['language']->enabled == 0) {
-          unset($build['links']['translation']['#links'][$index]);
-        }
-        else {
-          $build['links']['translation']['#links'][$index]['language'] = $language;
+  else {
+    if (!empty($node->tnid)) {
+      $links = $build['links']['translation']['#links'];
+      foreach (i18n_node_language_list($node) as $langcode => $langname) {
+        $index = 'translation_'. $langcode;
+        if (!empty($links[$index])) {
+          if (!($language_support & I18N_LANGUAGE_EXTENDED) && $links[$index]['language']->enabled == 0) {
+            unset($build['links']['translation']['#links'][$index]);
+          }
+          else {
+            $build['links']['translation']['#links'][$index]['language'] = $language;
+          }
         }
       }
     }
