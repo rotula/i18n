@@ -74,7 +74,7 @@ function i18n_select_query_node_access_alter(QueryAlterableInterface $query) {
         $query->leftjoin('node', 'i18n', 'n.tnid > 0 AND n.tnid = i18n.tnid AND i18n.language = :lang', array(':lang' => $language));
         $query->where('n.language=:lang OR (n.language=:default_lang AND i18n.nid IS NULL)', array(':lang' => $language, ':default_lang' => $default_lang));
       } else {
-        $query->where('language=:lang', array(':lang' => $language));
+        $query->where('n.language=:lang', array(':lang' => $language));
       }
     }
   }
